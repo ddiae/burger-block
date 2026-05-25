@@ -10,6 +10,7 @@ const FREE_UNLOCK_KEY = "burger-block-free-unlocked";
 export default function HomePage() {
   const navigate = useNavigate();
   const [showCodingModal, setShowCodingModal] = useState(false);
+  const [showTeacherModal, setShowTeacherModal] = useState(false);
   const [teacherMode, setTeacherMode] = useState(() => isTeacherMode());
   const [freeUnlocked, setFreeUnlocked] = useState(
     () => sessionStorage.getItem(FREE_UNLOCK_KEY) === "true" || isTeacherMode()
@@ -17,14 +18,27 @@ export default function HomePage() {
   const [showLockToast, setShowLockToast] = useState(false);
   const [showTeacherToast, setShowTeacherToast] = useState(false);
 
+  const activateTeacher = () => {
+    setTeacherMode(true);
+    setFreeUnlocked(true);
+    setShowTeacherToast(true);
+    setTimeout(() => setShowTeacherToast(false), 2000);
+  };
+
+  const deactivateTeacher = () => {
+    setTeacherMode(false);
+    setFreeUnlocked(sessionStorage.getItem(FREE_UNLOCK_KEY) === "true");
+    setShowTeacherToast(true);
+    setTimeout(() => setShowTeacherToast(false), 2000);
+  };
+
   useEffect(() => {
     return setupTeacherShortcut((active) => {
-      setTeacherMode(active);
-      setFreeUnlocked(
-        active || sessionStorage.getItem(FREE_UNLOCK_KEY) === "true"
-      );
-      setShowTeacherToast(true);
-      setTimeout(() => setShowTeacherToast(false), 2000);
+      if (active) {
+        setShowTeacherModal(true);
+      } else {
+        deactivateTeacher();
+      }
     });
   }, [navigate]);
 
@@ -121,6 +135,21 @@ export default function HomePage() {
             navigate("/coding");
           }}
           onClose={() => setShowCodingModal(false)}
+        />
+      )}
+
+      {showTeacherModal && (
+        <PasswordModal
+          title="👩‍🏫 선생님 모드 비밀번호"
+          correctPassword={PASSWORDS.teacher}
+          onSuccess={() => {
+            setShowTeacherModal(false);
+            activateTeacher();
+          }}
+          onClose={() => {
+            setShowTeacherModal(false);
+            deactivateTeacher();
+          }}
         />
       )}
     </div>

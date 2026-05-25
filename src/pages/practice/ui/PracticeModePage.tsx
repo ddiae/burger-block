@@ -14,6 +14,8 @@ import { BlockCanvas, mkChainId } from '../../../features/block-canvas';
 import type { CBChain } from '../../../features/block-canvas';
 import { ExecutionView } from '../../../widgets/execution-view';
 import FeedbackModal from '../../../shared/ui/FeedbackModal';
+import PasswordModal from '../../../shared/ui/PasswordModal';
+import PASSWORDS from '../../../shared/config/passwords';
 import { useExecution } from '../../../features/execution';
 import { mkBlockId } from '../../../entities/block/model/types';
 
@@ -32,6 +34,7 @@ export default function PracticeModePage() {
   const [activeType, setActiveType] = useState<IngredientType | null>(null);
   const [isTrayDrag, setIsTrayDrag] = useState(false);
   const [done, setDone] = useState(false);
+  const [showCodingModal, setShowCodingModal] = useState(false);
 
   const recipe = PRACTICE_BURGERS[burgerIndex];
   const usedTypes = new Set(chains.flatMap(ch => ch.items.map(b => b.type)));
@@ -250,6 +253,15 @@ export default function PracticeModePage() {
         </DragOverlay>
       </DndContext>
 
+      {showCodingModal && (
+        <PasswordModal
+          title="💻 코딩 모드 비밀번호"
+          correctPassword={PASSWORDS.coding}
+          onSuccess={() => { setShowCodingModal(false); navigate('/coding'); }}
+          onClose={() => setShowCodingModal(false)}
+        />
+      )}
+
       {showFeedback && (
         <FeedbackModal
           feedback={feedback}
@@ -257,7 +269,7 @@ export default function PracticeModePage() {
           isLastBurger={burgerIndex === PRACTICE_BURGERS.length - 1 && isCorrect}
           onRetry={handleRetry}
           onNext={handleNext}
-          onGoToCoding={() => navigate('/coding')}
+          onGoToCoding={() => { execReset(); setShowCodingModal(true); }}
           goToCodingLabel="💻 코딩 모드 가기!"
           onRestart={() => {
             execReset();

@@ -27,7 +27,7 @@ export default function PasswordModal({ onSuccess, onClose, correctPassword, tit
         <h2 className="text-3xl font-black text-center mb-6 text-gray-800">{title}</h2>
         <input
           type="password"
-          maxLength={6}
+          maxLength={20}
           value={value}
           onChange={e => setValue(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleSubmit()}
