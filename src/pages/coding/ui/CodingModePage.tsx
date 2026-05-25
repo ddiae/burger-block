@@ -26,8 +26,7 @@ const STORAGE_KEY = "burger-block-coding";
 
 /** Primary chain = topmost (smallest y) */
 function primaryChain(chains: CBChain[]): CBChain | null {
-  if (!chains.length) return null;
-  return [...chains].sort((a, b) => a.y - b.y)[0];
+  return chains.find(ch => ch.items[0]?.type === 'bottom_bun') ?? null;
 }
 
 export default function CodingModePage() {

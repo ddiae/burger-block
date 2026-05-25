@@ -1,9 +1,22 @@
-import { useRef, useState } from 'react';
-import type { IngredientType } from '../../../shared/types';
-import { BLOCK_LABELS } from '../../../entities/burger/data/burgers';
-import { BLOCK_COLORS } from '../../../features/block-tray';
+import { useRef, useState } from "react";
+import type { IngredientType } from "../../../shared/types";
+import { BLOCK_LABELS } from "../../../entities/burger/data/burgers";
+import { BLOCK_COLORS } from "../../../features/block-tray";
 
-const EMOJIS = ['🍔', '🌮', '🌯', '🥪', '🥗', '🍕', '🌭', '🥩', '🍖', '⭐', '💫', '🔥'];
+const EMOJIS = [
+  "🍔",
+  "😋",
+  "♥️",
+  "⭐️",
+  "🍳",
+  "🍅",
+  "👍",
+  "🌶️",
+  "🍟",
+  "🧂",
+  "🎀",
+  "🧩"
+];
 
 interface SaveBurgerModalProps {
   ingredients: IngredientType[];
@@ -11,9 +24,13 @@ interface SaveBurgerModalProps {
   onClose: () => void;
 }
 
-export default function SaveBurgerModal({ ingredients, onSave, onClose }: SaveBurgerModalProps) {
-  const [name, setName] = useState('');
-  const [emoji, setEmoji] = useState('🍔');
+export default function SaveBurgerModal({
+  ingredients,
+  onSave,
+  onClose
+}: SaveBurgerModalProps) {
+  const [name, setName] = useState("");
+  const [emoji, setEmoji] = useState("🍔");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = () => {
@@ -24,16 +41,18 @@ export default function SaveBurgerModal({ ingredients, onSave, onClose }: SaveBu
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-3xl p-8 shadow-2xl w-full max-w-sm flex flex-col gap-5">
-        <h2 className="text-2xl font-black text-gray-800 text-center">🍔 내 버거 이름 짓기</h2>
+        <h2 className="text-2xl font-black text-gray-800 text-center">
+          🍔 내 버거 이름 짓기
+        </h2>
 
         <div>
           <p className="text-base font-black text-gray-600 mb-2">이모지 선택</p>
           <div className="flex flex-wrap gap-2">
-            {EMOJIS.map(e => (
+            {EMOJIS.map((e) => (
               <button
                 key={e}
                 onClick={() => setEmoji(e)}
-                className={`text-2xl w-10 h-10 rounded-xl transition-all ${emoji === e ? 'bg-purple-100 ring-2 ring-purple-400 scale-110' : 'bg-gray-100 hover:bg-gray-200'}`}
+                className={`text-2xl w-10 h-10 rounded-xl transition-all ${emoji === e ? "bg-purple-100 ring-2 ring-purple-400 scale-110" : "bg-gray-100 hover:bg-gray-200"}`}
               >
                 {e}
               </button>
@@ -47,8 +66,8 @@ export default function SaveBurgerModal({ ingredients, onSave, onClose }: SaveBu
             ref={inputRef}
             type="text"
             value={name}
-            onChange={e => setName(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSave()}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSave()}
             placeholder="나의 특별한 버거"
             maxLength={20}
             autoFocus
@@ -58,7 +77,10 @@ export default function SaveBurgerModal({ ingredients, onSave, onClose }: SaveBu
 
         <div className="flex flex-wrap gap-1">
           {ingredients.map((ing, i) => (
-            <span key={i} className={`${BLOCK_COLORS[ing]} text-white text-sm font-black rounded-lg px-2 py-1`}>
+            <span
+              key={i}
+              className={`${BLOCK_COLORS[ing]} text-white text-sm font-black rounded-lg px-2 py-1`}
+            >
               {BLOCK_LABELS[ing]}
             </span>
           ))}

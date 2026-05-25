@@ -11,6 +11,6 @@ export interface SavedBurger {
 export const FREE_STORAGE_KEY = 'burger-block-free-burgers';
 
 export function loadSaved(): SavedBurger[] {
-  try { return JSON.parse(localStorage.getItem(FREE_STORAGE_KEY) ?? '[]'); }
+  try { return JSON.parse(sessionStorage.getItem(FREE_STORAGE_KEY) ?? '[]'); }
   catch { return []; }
 }

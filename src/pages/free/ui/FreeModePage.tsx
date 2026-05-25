@@ -41,8 +41,7 @@ const FREE_INGREDIENTS: IngredientType[] = [
 ];
 
 function primaryChain(chains: CBChain[]): CBChain | null {
-  if (!chains.length) return null;
-  return [...chains].sort((a, b) => a.y - b.y)[0];
+  return chains.find(ch => ch.items[0]?.type === 'bottom_bun') ?? null;
 }
 
 export default function FreeModePage() {
@@ -162,7 +161,7 @@ export default function FreeModePage() {
     };
     const updated = [newBurger, ...savedBurgers];
     setSavedBurgers(updated);
-    localStorage.setItem(FREE_STORAGE_KEY, JSON.stringify(updated));
+    sessionStorage.setItem(FREE_STORAGE_KEY, JSON.stringify(updated));
     setShowSaveModal(false);
     setChains([]);
     handleReset();
@@ -171,7 +170,7 @@ export default function FreeModePage() {
   const handleDelete = (id: string) => {
     const updated = savedBurgers.filter((b) => b.id !== id);
     setSavedBurgers(updated);
-    localStorage.setItem(FREE_STORAGE_KEY, JSON.stringify(updated));
+    sessionStorage.setItem(FREE_STORAGE_KEY, JSON.stringify(updated));
   };
 
   const handleCodeReset = () => {
@@ -179,6 +178,10 @@ export default function FreeModePage() {
     handleReset();
   };
   const showExecution = isRunning || animatedPlaced.length > 0;
+  const isValidBurger =
+    isDone &&
+    animatedPlaced[0] === "bottom_bun" &&
+    animatedPlaced[animatedPlaced.length - 1] === "top_bun";
 
   return (
     <div className={`h-screen flex flex-col ${pageBg} overflow-hidden`}>
@@ -206,16 +209,16 @@ export default function FreeModePage() {
               <div className="bg-amber-50 rounded-2xl shadow p-4 h-full flex flex-col overflow-hidden">
                 <div className="text-center mb-2 shrink-0">
                   <h3 className="text-xl font-black text-amber-800">
-                    🍔 실행 중...
+                    {isDone ? (
+                      <span className="text-green-600">🍔 버거 완성!</span>
+                    ) : (
+                      <>코드 실행 중...</>
+                    )}
                   </h3>
                   <div className="h-7 mt-1 flex items-center justify-center">
                     {currentIngredient ? (
                       <span className="text-base font-black text-amber-600 animate-pulse">
                         {INGREDIENT_LABELS[currentIngredient]} 추가!
-                      </span>
-                    ) : animatedPlaced.length > 0 ? (
-                      <span className="text-base font-black text-green-600">
-                        완성! 🎉
                       </span>
                     ) : null}
                   </div>
@@ -233,14 +236,27 @@ export default function FreeModePage() {
                     </div>
                   ))}
                 </div>
-                {isDone && (
-                  <button
-                    onClick={() => setShowSaveModal(true)}
-                    className="mt-3 w-full bg-purple-400 hover:bg-purple-500 text-white font-black text-lg rounded-2xl py-3 shadow-[0_4px_0_#7e22ce] active:shadow-none active:translate-y-1 transition-all shrink-0"
-                  >
-                    💾 내 버거 저장하기
-                  </button>
-                )}
+                {isDone &&
+                  (isValidBurger ? (
+                    <button
+                      onClick={() => setShowSaveModal(true)}
+                      className="mt-3 w-full bg-purple-400 hover:bg-purple-500 text-white font-black text-lg rounded-2xl py-3 shadow-[0_4px_0_#7e22ce] active:shadow-none active:translate-y-1 transition-all shrink-0"
+                    >
+                      💾 내 버거 저장하기
+                    </button>
+                  ) : (
+                    <div className="mt-3 shrink-0 flex flex-col gap-2">
+                      <p className="text-center text-xl mb-2 font-semibold whitespace-pre-line text-red-400">
+                        {"아래 빵으로 시작해서\n윗 빵으로 끝나야 해요!"}
+                      </p>
+                      <button
+                        onClick={handleCodeReset}
+                        className="w-full bg-pink-400 hover:bg-pink-500 text-white font-black text-lg rounded-2xl py-3 shadow-[0_4px_0_#be185d] active:shadow-none active:translate-y-1 transition-all"
+                      >
+                        🔄 다시 만들기
+                      </button>
+                    </div>
+                  ))}
               </div>
             ) : (
               <div className="bg-white/60 rounded-2xl shadow p-4 h-full flex flex-col items-center justify-center gap-4 text-center">
@@ -320,8 +336,8 @@ export default function FreeModePage() {
           🍔 나의 버거 리스트
         </p>
         {savedBurgers.length === 0 ? (
-          <p className="text-sm font-semibold text-gray-300 py-1">
-            아직 저장된 버거가 없어요. 블록을 쌓고 실행 후 저장해봐요!
+          <p className="text-sm font-semibold text-gray-400 italic py-1">
+            아직 저장된 버거가 없어요.
           </p>
         ) : (
           <div className="flex gap-3 overflow-x-auto pb-1">
