@@ -74,8 +74,8 @@ export default function HomePage() {
           emoji="🌱"
           label="연습 모드"
           desc="선생님과 함께 배워요"
-          bg="bg-emerald-400"
-          shadow="#059669"
+          bg="bg-violet-400"
+          shadow="#7c3aed"
           onClick={() => navigate("/practice")}
         />
         <ModeCard
@@ -96,8 +96,8 @@ export default function HomePage() {
               ? "나만의 버거를 만들어요"
               : "코딩 모드를 완수하면 열려요!"
           }
-          bg={freeUnlocked ? "bg-violet-400" : "bg-gray-300"}
-          shadow={freeUnlocked ? "#7c3aed" : "#9ca3af"}
+          bg={freeUnlocked ? "bg-emerald-400" : "bg-gray-300"}
+          shadow={freeUnlocked ? "#059669" : "#9ca3af"}
           onClick={handleFreeClick}
           locked={!freeUnlocked}
         />
