@@ -9,7 +9,7 @@ import {
   useSensors
 } from "@dnd-kit/core";
 import type { DragStartEvent, DragEndEvent } from "@dnd-kit/core";
-import { pageBg } from "@ddiae-ui";
+import { pageBg } from "../../../shared/config/theme";
 import {
   BLOCK_LABELS,
   INGREDIENT_LABELS

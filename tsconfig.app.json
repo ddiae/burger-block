@@ -21,10 +21,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
-    "paths": {
-      "@ddiae-ui": ["/Users/wldocis/dev/ddiae-ui/src/index.ts"]
-    }
+    "baseUrl": "."
   },
   "include": ["src"]
 }

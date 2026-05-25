@@ -5,7 +5,7 @@ import {
   pointerWithin, useSensor, useSensors,
 } from '@dnd-kit/core';
 import type { DragStartEvent, DragEndEvent } from '@dnd-kit/core';
-import { pageBg } from '@ddiae-ui';
+import { pageBg } from '../../../shared/config/theme';
 import { BURGERS, BLOCK_LABELS } from '../../../entities/burger/data/burgers';
 import type { IngredientType } from '../../../shared/types';
 import { RecipePanel } from '../../../widgets/recipe-panel';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { pageBg } from "@ddiae-ui";
+import { pageBg } from "../../../shared/config/theme";
 import PasswordModal from "../../../shared/ui/PasswordModal";
 import PASSWORDS from "../../../shared/config/passwords";
 import { setupTeacherShortcut, isTeacherMode } from "../../../utils/teacher";
