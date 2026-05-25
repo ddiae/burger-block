@@ -1,25 +1,36 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { pageBg } from '@ddiae-ui';
-import PasswordModal from '../../../shared/ui/PasswordModal';
-import PASSWORDS from '../../../shared/config/passwords';
-import { setupTeacherShortcut } from '../../../utils/teacher';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { pageBg } from "@ddiae-ui";
+import PasswordModal from "../../../shared/ui/PasswordModal";
+import PASSWORDS from "../../../shared/config/passwords";
+import { setupTeacherShortcut, isTeacherMode } from "../../../utils/teacher";
 
-const FREE_UNLOCK_KEY = 'burger-block-free-unlocked';
+const FREE_UNLOCK_KEY = "burger-block-free-unlocked";
 
 export default function HomePage() {
   const navigate = useNavigate();
   const [showCodingModal, setShowCodingModal] = useState(false);
-  const [freeUnlocked] = useState(() => sessionStorage.getItem(FREE_UNLOCK_KEY) === 'true');
+  const [teacherMode, setTeacherMode] = useState(() => isTeacherMode());
+  const [freeUnlocked, setFreeUnlocked] = useState(
+    () => sessionStorage.getItem(FREE_UNLOCK_KEY) === "true" || isTeacherMode()
+  );
   const [showLockToast, setShowLockToast] = useState(false);
+  const [showTeacherToast, setShowTeacherToast] = useState(false);
 
   useEffect(() => {
-    return setupTeacherShortcut(() => navigate('/teacher'));
+    return setupTeacherShortcut((active) => {
+      setTeacherMode(active);
+      setFreeUnlocked(
+        active || sessionStorage.getItem(FREE_UNLOCK_KEY) === "true"
+      );
+      setShowTeacherToast(true);
+      setTimeout(() => setShowTeacherToast(false), 2000);
+    });
   }, [navigate]);
 
   const handleFreeClick = () => {
     if (freeUnlocked) {
-      navigate('/free');
+      navigate("/free");
     } else {
       setShowLockToast(true);
       setTimeout(() => setShowLockToast(false), 2500);
@@ -27,12 +38,23 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`min-h-screen ${pageBg} flex flex-col items-center justify-center p-8 gap-10`}>
+    <div
+      className={`min-h-screen ${pageBg} flex flex-col items-center justify-center p-8 gap-10`}
+    >
       {/* Logo */}
       <div className="text-center">
-        <div className="text-8xl mb-4 drop-shadow-lg" style={{ filter: 'drop-shadow(0 8px 0 #b45309)' }}>🍔</div>
-        <h1 className="text-5xl font-black text-gray-800 tracking-tight mb-2">버거 블록</h1>
-        <p className="text-lg text-gray-500 font-bold">버거를 만들면서 코딩을 배워요!</p>
+        <div
+          className="text-8xl mb-4 drop-shadow-lg"
+          style={{ filter: "drop-shadow(0 8px 0 #b45309)" }}
+        >
+          🍔
+        </div>
+        <h1 className="text-5xl font-black text-gray-800 tracking-tight mb-2">
+          버거 블록
+        </h1>
+        <p className="text-lg text-gray-500 font-bold">
+          버거를 만들면서 코딩을 배워요!
+        </p>
       </div>
 
       {/* Mode buttons */}
@@ -43,7 +65,7 @@ export default function HomePage() {
           desc="선생님과 함께 배워요"
           bg="from-green-400 to-emerald-500"
           shadow="#065f46"
-          onClick={() => navigate('/practice')}
+          onClick={() => navigate("/practice")}
         />
         <ModeCard
           emoji="💻"
@@ -51,20 +73,41 @@ export default function HomePage() {
           desc="블록으로 코드를 짜요"
           bg="from-sky-400 to-blue-500"
           shadow="#0369a1"
-          onClick={() => setShowCodingModal(true)}
+          onClick={() =>
+            teacherMode ? navigate("/coding") : setShowCodingModal(true)
+          }
         />
         <ModeCard
-          emoji={freeUnlocked ? '🎨' : '🔒'}
+          emoji={freeUnlocked ? "🎨" : "🔒"}
           label="자율 모드"
-          desc={freeUnlocked ? '나만의 버거를 만들어요' : '코딩 모드를 완수하면 열려요!'}
-          bg={freeUnlocked ? 'from-purple-400 to-pink-500' : 'from-gray-300 to-gray-400'}
-          shadow={freeUnlocked ? '#7e22ce' : '#6b7280'}
+          desc={
+            freeUnlocked
+              ? "나만의 버거를 만들어요"
+              : "코딩 모드를 완수하면 열려요!"
+          }
+          bg={
+            freeUnlocked
+              ? "from-purple-400 to-pink-500"
+              : "from-gray-300 to-gray-400"
+          }
+          shadow={freeUnlocked ? "#7e22ce" : "#6b7280"}
           onClick={handleFreeClick}
           locked={!freeUnlocked}
         />
       </div>
 
-      <p className="text-gray-400 text-sm font-semibold">선생님 모드: Shift + T</p>
+      <p
+        className={`text-sm font-semibold transition-colors ${teacherMode ? "text-orange-400" : "text-gray-400"}`}
+      >
+        {teacherMode && "👩‍🏫 선생님 모드 ON (Shift+T로 해제)"}
+      </p>
+
+      {/* Teacher mode toast */}
+      {showTeacherToast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-orange-500 text-white font-black text-base rounded-2xl px-6 py-3 shadow-xl z-50">
+          {teacherMode && "👩‍🏫 선생님 모드 ON"}
+        </div>
+      )}
 
       {/* Lock toast */}
       {showLockToast && (
@@ -77,7 +120,10 @@ export default function HomePage() {
         <PasswordModal
           title="💻 코딩 모드 비밀번호"
           correctPassword={PASSWORDS.coding}
-          onSuccess={() => { setShowCodingModal(false); navigate('/coding'); }}
+          onSuccess={() => {
+            setShowCodingModal(false);
+            navigate("/coding");
+          }}
           onClose={() => setShowCodingModal(false)}
         />
       )}
@@ -86,15 +132,29 @@ export default function HomePage() {
 }
 
 function ModeCard({
-  emoji, label, desc, bg, shadow, onClick, locked,
+  emoji,
+  label,
+  desc,
+  bg,
+  shadow,
+  onClick,
+  locked
 }: {
-  emoji: string; label: string; desc: string; bg: string; shadow: string; onClick: () => void; locked?: boolean;
+  emoji: string;
+  label: string;
+  desc: string;
+  bg: string;
+  shadow: string;
+  onClick: () => void;
+  locked?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
       className={`flex-1 bg-linear-to-br ${bg} rounded-3xl p-6 text-white text-left transition-all select-none ${
-        locked ? 'cursor-not-allowed opacity-80' : 'cursor-pointer active:translate-y-1 hover:scale-[1.03]'
+        locked
+          ? "cursor-not-allowed opacity-80"
+          : "cursor-pointer active:translate-y-1 hover:scale-[1.03]"
       }`}
       style={{ boxShadow: `0 6px 0 ${shadow}` }}
     >

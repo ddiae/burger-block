@@ -1,5 +1,5 @@
 const PASSWORDS = {
-  coding: '456',
+  coding: "1212"
 } as const;
 
 export default PASSWORDS;

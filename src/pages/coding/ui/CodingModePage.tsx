@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   DndContext, DragOverlay, PointerSensor,
@@ -16,6 +16,7 @@ import { ExecutionView } from '../../../widgets/execution-view';
 import FeedbackModal from '../../../shared/ui/FeedbackModal';
 import { useExecution } from '../../../features/execution';
 import { mkBlockId } from '../../../entities/block/model/types';
+import { isTeacherMode } from '../../../utils/teacher';
 
 const STORAGE_KEY = 'burger-block-coding';
 
@@ -27,6 +28,7 @@ function primaryChain(chains: CBChain[]): CBChain | null {
 
 export default function CodingModePage() {
   const navigate = useNavigate();
+  const teacherMode = useRef(isTeacherMode()).current;
   const [burgerIndex, setBurgerIndex] = useState<number>(() => {
     const saved = sessionStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved).index ?? 0 : 0;
@@ -177,9 +179,33 @@ export default function CodingModePage() {
           ) : (
             <span className="text-2xl font-black text-gray-800">💻 코딩 모드</span>
           )}
-          <span className={`text-base font-black rounded-full px-3 py-1 ${recipe.isDebug ? 'bg-orange-100 text-orange-500' : 'bg-gray-100 text-gray-400'}`}>
-            {burgerIndex + 1} / {BURGERS.length}
-          </span>
+          {teacherMode ? (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => { setChains([]); execReset(); setBurgerIndex(p => Math.max(0, p - 1)); }}
+                disabled={burgerIndex === 0}
+                className="text-base font-black text-orange-400 hover:text-orange-600 disabled:opacity-30 px-1"
+              >◀</button>
+              <select
+                value={burgerIndex}
+                onChange={e => { setChains([]); execReset(); setBurgerIndex(Number(e.target.value)); }}
+                className="text-sm font-black bg-orange-100 text-orange-600 rounded-xl px-2 py-1 border-none outline-none cursor-pointer"
+              >
+                {BURGERS.map((b, i) => (
+                  <option key={b.id} value={i}>{i + 1}. {b.name}</option>
+                ))}
+              </select>
+              <button
+                onClick={() => { setChains([]); execReset(); setBurgerIndex(p => Math.min(BURGERS.length - 1, p + 1)); }}
+                disabled={burgerIndex === BURGERS.length - 1}
+                className="text-base font-black text-orange-400 hover:text-orange-600 disabled:opacity-30 px-1"
+              >▶</button>
+            </div>
+          ) : (
+            <span className={`text-base font-black rounded-full px-3 py-1 ${recipe.isDebug ? 'bg-orange-100 text-orange-500' : 'bg-gray-100 text-gray-400'}`}>
+              {burgerIndex + 1} / {BURGERS.length}
+            </span>
+          )}
         </div>
         <div className="flex gap-2">
           {BURGERS.map((b, i) => (

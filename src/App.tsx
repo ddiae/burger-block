@@ -3,7 +3,6 @@ import HomePage from './pages/home/ui/HomePage';
 import PracticeModePage from './pages/practice/ui/PracticeModePage';
 import CodingModePage from './pages/coding/ui/CodingModePage';
 import FreeModePage from './pages/free/ui/FreeModePage';
-
 export default function App() {
   return (
     <BrowserRouter>
