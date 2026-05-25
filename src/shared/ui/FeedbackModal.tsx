@@ -7,6 +7,7 @@ interface FeedbackModalProps {
   onRetry: () => void;
   onNext: () => void;
   onGoToCoding?: () => void;
+  goToCodingLabel?: string;
   onRestart?: () => void;
 }
 
@@ -17,6 +18,7 @@ export default function FeedbackModal({
   onRetry,
   onNext,
   onGoToCoding,
+  goToCodingLabel = '🎨 자율 모드 가기!',
   onRestart,
 }: FeedbackModalProps) {
   return (
@@ -37,7 +39,7 @@ export default function FeedbackModal({
               {isLastBurger && onGoToCoding ? (
                 <>
                   <ActionButton color="green" onClick={onGoToCoding}>
-                    🎨 자율 모드 가기!
+                    {goToCodingLabel}
                   </ActionButton>
                   <ActionButton color="ghost" onClick={onRestart ?? onRetry}>
                     처음부터 다시하기

@@ -17,8 +17,8 @@ import FeedbackModal from '../../../shared/ui/FeedbackModal';
 import { useExecution } from '../../../features/execution';
 import { mkBlockId } from '../../../entities/block/model/types';
 
-// 연습 모드: 기본 버거 + 디버그 스테이지 1개
-const PRACTICE_BURGERS = [BURGERS[0], BURGERS[6]]; // 기본 버거, debug_flip
+// 연습 모드: 기본 버거 + 디버그 스테이지 2개
+const PRACTICE_BURGERS = [BURGERS[0], BURGERS[6], BURGERS[7]]; // 기본 버거, debug_extra_basic, debug_flip
 
 function primaryChain(chains: CBChain[]): CBChain | null {
   if (!chains.length) return null;
@@ -257,7 +257,12 @@ export default function PracticeModePage() {
           isLastBurger={burgerIndex === PRACTICE_BURGERS.length - 1 && isCorrect}
           onRetry={handleRetry}
           onNext={handleNext}
-          onGoToCoding={() => navigate('/')}
+          onGoToCoding={() => navigate('/coding')}
+          goToCodingLabel="💻 코딩 모드 가기!"
+          onRestart={() => {
+            execReset();
+            setBurgerIndex(0);
+          }}
         />
       )}
     </div>

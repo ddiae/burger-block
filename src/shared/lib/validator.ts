@@ -1,5 +1,6 @@
 import type { BurgerRecipe, Feedback, IngredientType } from '../types';
 import { INGREDIENT_LABELS } from '../../entities/burger/data/burgers';
+import { josa } from './josa';
 
 export const validate = (
   placed: IngredientType[],
@@ -22,7 +23,7 @@ export const validate = (
           type: 'missing',
           position: i,
           expected: e,
-          message: `${INGREDIENT_LABELS[e]}을(를) 빼먹은 것 같아요! 다시 생각해 보세요!`,
+          message: `${INGREDIENT_LABELS[e]}${josa(INGREDIENT_LABELS[e], '을/를')} 빼먹은 것 같아요! 다시 생각해 보세요!`,
         },
       };
     }
@@ -59,7 +60,7 @@ export const validate = (
           position: i,
           expected: e,
           got: p,
-          message: `${INGREDIENT_LABELS[p]}이(가) 잘못된 위치에 들어갔어요!`,
+          message: `${INGREDIENT_LABELS[p]}${josa(INGREDIENT_LABELS[p], '이/가')} 잘못된 위치에 들어갔어요!`,
         },
       };
     }

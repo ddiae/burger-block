@@ -143,6 +143,17 @@ export const BURGERS: BurgerRecipe[] = [
 
   // ── 디버그 스테이지 ──────────────────────────────────────────────
   {
+    id: "debug_extra_basic",
+    name: "재료가 너무 많은 버거",
+    emoji: "🐛",
+    description: "필요없는 재료가 들어가 있어요.\n찾아서 빼봐요!",
+    sequence: ["bottom_bun", "patty", "top_bun"],
+    availableIngredients: ["bottom_bun", "patty", "top_bun", "lettuce"],
+    rules: [],
+    isDebug: true,
+    initialSequence: ["bottom_bun", "lettuce", "patty", "top_bun"]
+  },
+  {
     id: "debug_flip",
     name: "뒤집힌 기본 버거",
     emoji: "🐛",
