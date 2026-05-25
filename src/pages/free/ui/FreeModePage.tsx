@@ -290,7 +290,7 @@ export default function FreeModePage() {
                 disabled={isRunning}
                 className="text-lg font-black text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-2 px-4 py-3 rounded-2xl hover:bg-white/60 min-h-14 disabled:opacity-30"
               >
-                🔄 초기화
+                🔄 다시 하기
               </button>
               <button
                 onClick={handleRun}
