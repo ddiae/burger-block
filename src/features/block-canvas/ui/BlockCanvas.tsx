@@ -1,13 +1,12 @@
 import { useRef, useState, useCallback } from 'react';
 import { useDroppable } from '@dnd-kit/core';
-import type { IngredientType } from '../../../shared/types';
 import { BLOCK_LABELS } from '../../../entities/burger/data/burgers';
 import { BLOCK_COLORS } from '../../../entities/block/model/colors';
 import { BLOCK_H, mkChainId } from '../../../entities/block/model/types';
-import type { CBChain, CBItem } from '../../../entities/block/model/types';
+import type { CBChain } from '../../../entities/block/model/types';
 
 export { BLOCK_H, mkChainId } from '../../../entities/block/model/types';
-export type { CBChain, CBItem } from '../../../entities/block/model/types';
+export type { CBChain } from '../../../entities/block/model/types';
 
 const SNAP_Y = 18;
 const SNAP_X = 72;
