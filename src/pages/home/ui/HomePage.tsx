@@ -63,16 +63,16 @@ export default function HomePage() {
           emoji="🌱"
           label="연습 모드"
           desc="선생님과 함께 배워요"
-          bg="from-green-400 to-emerald-500"
-          shadow="#065f46"
+          bg="bg-emerald-400"
+          shadow="#059669"
           onClick={() => navigate("/practice")}
         />
         <ModeCard
           emoji="💻"
           label="코딩 모드"
           desc="블록으로 코드를 짜요"
-          bg="from-sky-400 to-blue-500"
-          shadow="#0369a1"
+          bg="bg-sky-400"
+          shadow="#0284c7"
           onClick={() =>
             teacherMode ? navigate("/coding") : setShowCodingModal(true)
           }
@@ -85,12 +85,8 @@ export default function HomePage() {
               ? "나만의 버거를 만들어요"
               : "코딩 모드를 완수하면 열려요!"
           }
-          bg={
-            freeUnlocked
-              ? "from-purple-400 to-pink-500"
-              : "from-gray-300 to-gray-400"
-          }
-          shadow={freeUnlocked ? "#7e22ce" : "#6b7280"}
+          bg={freeUnlocked ? "bg-violet-400" : "bg-gray-300"}
+          shadow={freeUnlocked ? "#7c3aed" : "#9ca3af"}
           onClick={handleFreeClick}
           locked={!freeUnlocked}
         />
@@ -105,7 +101,7 @@ export default function HomePage() {
       {/* Teacher mode toast */}
       {showTeacherToast && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-orange-500 text-white font-black text-base rounded-2xl px-6 py-3 shadow-xl z-50">
-          {teacherMode && "👩‍🏫 선생님 모드 ON"}
+          {teacherMode ? "선생님 모드 ON" : "선생님 모드 OFF"}
         </div>
       )}
 
@@ -151,7 +147,7 @@ function ModeCard({
   return (
     <button
       onClick={onClick}
-      className={`flex-1 bg-linear-to-br ${bg} rounded-3xl p-6 text-white text-left transition-all select-none ${
+      className={`flex-1 ${bg} rounded-3xl p-6 text-white text-left transition-all select-none ${
         locked
           ? "cursor-not-allowed opacity-80"
           : "cursor-pointer active:translate-y-1 hover:scale-[1.03]"
