@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@source "/Users/wldocis/dev/ddiae-ui/src";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', system-ui, sans-serif;
+}
+
+@keyframes ingredient-fall {
+  from { transform: translateY(-80px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+.ingredient-fall {
+  animation: ingredient-fall 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
