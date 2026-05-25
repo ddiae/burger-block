@@ -58,14 +58,11 @@ export default function HomePage() {
       {/* Logo */}
       <div className="text-center">
         <div
-          className="text-8xl mb-4 drop-shadow-lg"
+          className="text-8xl mb-5 drop-shadow-lg"
           style={{ filter: "drop-shadow(0 8px 0 #b45309)" }}
         >
           🍔
         </div>
-        <h1 className="text-5xl font-black text-gray-800 tracking-tight mb-2">
-          버거 블록
-        </h1>
         <p className="text-lg text-gray-500 font-bold">
           버거를 만들면서 코딩을 배워요!
         </p>
