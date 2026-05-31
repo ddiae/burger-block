@@ -17,7 +17,7 @@ export const BURGERS: BurgerRecipe[] = [
     description: "치즈가 들어간 버거예요!",
     sequence: [
       "bottom_bun",
-      "cheese_sauce",
+      "ketchup",
       "lettuce",
       "patty",
       "cheese",
@@ -25,7 +25,7 @@ export const BURGERS: BurgerRecipe[] = [
     ],
     availableIngredients: [
       "bottom_bun",
-      "cheese_sauce",
+      "ketchup",
       "lettuce",
       "patty",
       "cheese",
@@ -171,7 +171,7 @@ export const BURGERS: BurgerRecipe[] = [
     description: "재료 두 개의 순서가 뒤바뀌었어요.\n찾아서 고쳐봐요!",
     sequence: [
       "bottom_bun",
-      "cheese_sauce",
+      "ketchup",
       "lettuce",
       "patty",
       "cheese",
@@ -179,7 +179,7 @@ export const BURGERS: BurgerRecipe[] = [
     ],
     availableIngredients: [
       "bottom_bun",
-      "cheese_sauce",
+      "ketchup",
       "lettuce",
       "patty",
       "cheese",
@@ -190,7 +190,7 @@ export const BURGERS: BurgerRecipe[] = [
     initialSequence: [
       "bottom_bun",
       "lettuce",
-      "cheese_sauce",
+      "ketchup",
       "patty",
       "cheese",
       "top_bun"
@@ -267,30 +267,30 @@ export const BURGERS: BurgerRecipe[] = [
 ];
 
 export const INGREDIENT_LABELS: Record<IngredientType, string> = {
-  bottom_bun: "아래 빵",
-  top_bun: "윗 빵",
-  patty: "패티",
-  cheese: "치즈",
-  lettuce: "상추",
-  tomato: "토마토",
-  onion: "양파",
-  bulgogi_sauce: "불고기 소스",
-  cheese_sauce: "치즈 소스",
-  special_sauce: "스페셜 소스",
-  bacon: "베이컨",
-  egg: "계란"
+  bottom_bun: "🍞 아래 빵",
+  top_bun: "🎩 윗 빵",
+  patty: "🥩 패티",
+  cheese: "🧀 치즈",
+  lettuce: "🥬 상추",
+  tomato: "🍅 토마토",
+  onion: "🧅 양파",
+  bulgogi_sauce: "🍯 불고기 소스",
+  ketchup: "🫙 케첩",
+  special_sauce: "⭐ 스페셜 소스",
+  bacon: "🥓 베이컨",
+  egg: "🍳 계란"
 };
 
 export const INGREDIENT_EMOJIS: Record<IngredientType, string> = {
   bottom_bun: "🍞",
-  top_bun: "🍞",
+  top_bun: "🎩",
   patty: "🥩",
   cheese: "🧀",
   lettuce: "🥬",
   tomato: "🍅",
   onion: "🧅",
   bulgogi_sauce: "🍯",
-  cheese_sauce: "🧀",
+  ketchup: "🫙",
   special_sauce: "⭐",
   bacon: "🥓",
   egg: "🍳"
@@ -298,14 +298,14 @@ export const INGREDIENT_EMOJIS: Record<IngredientType, string> = {
 
 export const BLOCK_LABELS: Record<IngredientType, string> = {
   bottom_bun: "🍞 아래 빵 놓기",
-  top_bun: "🍞 윗 빵 덮기",
+  top_bun: "🎩 윗 빵 덮기",
   patty: "🥩 패티 올리기",
   cheese: "🧀 치즈 올리기",
   lettuce: "🥬 상추 올리기",
   tomato: "🍅 토마토 올리기",
   onion: "🧅 양파 올리기",
   bulgogi_sauce: "🍯 불고기 소스 바르기",
-  cheese_sauce: "🧀 치즈 소스 바르기",
+  ketchup: "🫙 케첩 바르기",
   special_sauce: "⭐ 스페셜 소스 바르기",
   bacon: "🥓 베이컨 올리기",
   egg: "🍳 계란 올리기"

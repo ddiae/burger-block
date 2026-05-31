@@ -7,7 +7,7 @@ export type IngredientType =
   | 'tomato'
   | 'onion'
   | 'bulgogi_sauce'
-  | 'cheese_sauce'
+  | 'ketchup'
   | 'special_sauce'
   | 'bacon'
   | 'egg';

@@ -238,7 +238,7 @@ const SVG_MAP: Record<IngredientType, React.ComponentType> = {
   tomato: Tomato,
   onion: Onion,
   bulgogi_sauce: BulgogiSauce,
-  cheese_sauce: CheeseSauce,
+  ketchup: CheeseSauce,
   special_sauce: SpecialSauce,
   bacon: Bacon,
   egg: Egg,
