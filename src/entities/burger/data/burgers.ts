@@ -275,7 +275,7 @@ export const INGREDIENT_LABELS: Record<IngredientType, string> = {
   tomato: "🍅 토마토",
   onion: "🧅 양파",
   bulgogi_sauce: "🍯 불고기 소스",
-  ketchup: "🫙 케첩",
+  ketchup: "🥫 케첩",
   special_sauce: "⭐ 스페셜 소스",
   bacon: "🥓 베이컨",
   egg: "🍳 계란"
@@ -290,7 +290,7 @@ export const INGREDIENT_EMOJIS: Record<IngredientType, string> = {
   tomato: "🍅",
   onion: "🧅",
   bulgogi_sauce: "🍯",
-  ketchup: "🫙",
+  ketchup: "🥫",
   special_sauce: "⭐",
   bacon: "🥓",
   egg: "🍳"
@@ -305,7 +305,7 @@ export const BLOCK_LABELS: Record<IngredientType, string> = {
   tomato: "🍅 토마토 올리기",
   onion: "🧅 양파 올리기",
   bulgogi_sauce: "🍯 불고기 소스 바르기",
-  ketchup: "🫙 케첩 바르기",
+  ketchup: "🥫 케첩 바르기",
   special_sauce: "⭐ 스페셜 소스 바르기",
   bacon: "🥓 베이컨 올리기",
   egg: "🍳 계란 올리기"

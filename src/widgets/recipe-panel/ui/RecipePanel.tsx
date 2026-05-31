@@ -1,8 +1,11 @@
+import { useState } from "react";
 import type { BurgerRecipe, IngredientType } from "../../../shared/types";
-import { INGREDIENT_LABELS } from "../../../entities/burger/data/burgers";
+import { INGREDIENT_LABELS, INGREDIENT_EMOJIS } from "../../../entities/burger/data/burgers";
 import IngredientSVG from "../../../entities/burger/ui/IngredientSVG";
 
 export default function RecipePanel({ recipe }: { recipe: BurgerRecipe }) {
+  const [showHint, setShowHint] = useState(false);
+
   return (
     <div className="bg-white/80 backdrop-blur rounded-2xl shadow p-4 h-full flex flex-col">
       <div className="text-center mb-3">
@@ -26,6 +29,22 @@ export default function RecipePanel({ recipe }: { recipe: BurgerRecipe }) {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-3 shrink-0 relative">
+        {showHint && (
+          <div className="absolute bottom-full mb-2 left-0 right-0 bg-white rounded-xl shadow-lg px-3 py-2 flex flex-wrap gap-1.5 justify-center">
+            {recipe.sequence.map((type, i) => (
+              <span key={i} className="text-2xl">{INGREDIENT_EMOJIS[type]}</span>
+            ))}
+          </div>
+        )}
+        <button
+          onClick={() => setShowHint(h => !h)}
+          className="w-full text-sm font-black text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl py-2 transition-all"
+        >
+          {showHint ? '힌트 숨기기 🙈' : '💡 힌트 보기'}
+        </button>
       </div>
     </div>
   );
