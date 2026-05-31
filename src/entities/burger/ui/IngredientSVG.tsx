@@ -138,18 +138,18 @@ function BulgogiSauce() {
   );
 }
 
-function CheeseSauce() {
+function Ketchup() {
   return (
     <svg viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M10,15 Q40,5 80,18 Q120,5 160,18 Q200,5 240,18 Q270,8 290,15 L295,25 Q265,20 240,26 Q200,18 160,26 Q120,18 80,26 Q40,20 10,25 Z"
-        fill="#f5c842"
+        fill="#e53e3e"
         opacity="0.9"
       />
       <path
         d="M10,15 Q40,5 80,18 Q120,5 160,18 Q200,5 240,18 Q270,8 290,15"
         fill="none"
-        stroke="#f9a825"
+        stroke="#c53030"
         strokeWidth="2"
         opacity="0.5"
       />
@@ -238,7 +238,7 @@ const SVG_MAP: Record<IngredientType, React.ComponentType> = {
   tomato: Tomato,
   onion: Onion,
   bulgogi_sauce: BulgogiSauce,
-  ketchup: CheeseSauce,
+  ketchup: Ketchup,
   special_sauce: SpecialSauce,
   bacon: Bacon,
   egg: Egg,

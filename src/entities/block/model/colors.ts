@@ -9,7 +9,7 @@ export const BLOCK_COLORS: Record<IngredientType, string> = {
   tomato: 'bg-red-500 border-red-700',
   onion: 'bg-purple-400 border-purple-600',
   bulgogi_sauce: 'bg-orange-700 border-orange-900',
-  ketchup: 'bg-yellow-500 border-yellow-700',
+  ketchup: 'bg-rose-400 border-rose-600',
   special_sauce: 'bg-red-600 border-red-800',
   bacon: 'bg-red-700 border-red-900',
   egg: 'bg-yellow-300 border-yellow-500',
