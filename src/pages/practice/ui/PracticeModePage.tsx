@@ -27,7 +27,8 @@ import { mkBlockId } from "../../../entities/block/model/types";
 const PRACTICE_BURGERS = [BURGERS[0], BURGERS[6], BURGERS[7]]; // 기본 버거, debug_extra_basic, debug_flip
 
 function primaryChain(chains: CBChain[]): CBChain | null {
-  return chains.find(ch => ch.items[0]?.type === 'bottom_bun') ?? null;
+  if (!chains.length) return null;
+  return [...chains].sort((a, b) => a.y - b.y)[0];
 }
 
 export default function PracticeModePage() {
